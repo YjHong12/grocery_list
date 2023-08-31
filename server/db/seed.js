@@ -1,7 +1,7 @@
 // Resets database
 const client = require("./client");
 
-const { createMember, getMemberById } = require("./helpers/members");
+const { createMember, getAllMembers } = require("./helpers/members");
 const { createList, getAllLists } = require("./helpers/lists");
 const { createItem, getAllItems } = require("./helpers/items");
 
@@ -64,8 +64,8 @@ const createInitialMembers = async () => {
 //Create list
 const createInitialLists = async () => {
   try {
-    for (const list of lists) {
-      await createList(list);
+    for (const singleList of list) {
+      await createList(singleList);
     }
     console.log("Created list");
   } catch (error) {
@@ -76,8 +76,8 @@ const createInitialLists = async () => {
 //Create item
 const createInitialItems = async () => {
   try {
-    for (const item of items) {
-      await createItem(item);
+    for (const singleItem of item) {
+      await createItem(singleItem);
     }
     console.log("Created item");
   } catch (error) {
