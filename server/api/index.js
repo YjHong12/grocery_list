@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/get', (req, res) => {
-    res.send('Get all items');
-});
-
 // ROUTER: /api/items
 router.use('/items', require('./items'));
 
-module.exports = router;
+// ROUTER: /api/lists
+router.use('/lists', require('./lists'));
 
+// ROUTER: /api/members
+router.use('/members', require('./members'));
+
+module.exports = router;
