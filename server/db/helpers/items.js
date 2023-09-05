@@ -48,16 +48,16 @@ const getItemById = async (item_id) => {
   }
 };
 
-const updateItem = async ({ item_name, quantity, list_id }) => {
+const updateItem = async (item_id, { item_name, quantity, list_id }) => {
   try {
     const {
       rows: [item],
     } = await client.query(
       `
-        UPDATE item
-        SET item_name = $1, quantity = $2, list_id = $3
-        WHERE item_id =$4;
-        RETURNING *;
+      UPDATE item
+      SET item_name = $1, quantity = $2, list_id = $3
+      WHERE item_id = $4
+      RETURNING *;
         `,
       [item_name, quantity, list_id, item_id]
     );
