@@ -6,7 +6,7 @@ const createItem = async ({ item_name, quantity, list_id }) => {
       rows: [item],
     } = await client.query(
       `
-        INSERT INTO item( item_name, quantity, "list_id" )
+        INSERT INTO item( item_name, quantity, list_id )
         VALUES($1, $2, $3)
         RETURNING *;
         `,
@@ -55,12 +55,11 @@ const updateItem = async ({ item_name, quantity, list_id }) => {
     } = await client.query(
       `
         UPDATE item
-        SET item( item_name, quantity, "list_id" )
-        VALUES($1, $2, $3)
-        WHERE "item_id" =${item_id};
+        SET item_name = $1, quantity = $2, list_id = $3
+        WHERE item_id =$4;
         RETURNING *;
         `,
-      [item_name, quantity, list_id]
+      [item_name, quantity, list_id, item_id]
     );
     console.log("Updated", item);
     return item;
@@ -75,9 +74,9 @@ const deleteItem = async (item_id) => {
       rows: [item],
     } = await client.query(
       `
-        DELETE * FROM item
-        WHERE "item_id" =${item_id};
-        `
+        DELETE FROM item
+        WHERE item_id =$1;
+        `, [item_id]
     );
     console.log("Deleted", item);
     return item;

@@ -6,7 +6,7 @@ const createList = async ({ title, member_id }) => {
       rows: [list],
     } = await client.query(
       `
-        INSERT INTO list(title, "member_id")
+        INSERT INTO list(title, member_id)
         VALUES($1, $2)
         RETURNING *;
         `,
@@ -55,13 +55,13 @@ const updateList = async (list_id, body) => {
       rows: [list],
     } = await client.query(
       `
-        UPDATE list
-        SET list( title, "member_id" )
-        VALUES($1, $2)
-        WHERE "list_id" =${list_id};
-        RETURNING *;
+      UPDATE list
+      SET title = $1, member_id = $2
+      WHERE list_id = $3
+      RETURNING *;
+      
         `,
-      [body.title, body.member_id]
+      [body.title, body.member_id, list_id]
     );
     console.log("Updated", list);
     return list;
@@ -76,9 +76,10 @@ const deleteList = async (list_id) => {
       rows: [list],
     } = await client.query(
       `
-        DELETE * FROM list
-        WHERE "list_id" =${list_id};
-        `
+        DELETE FROM list
+        WHERE list_id = $1;
+        `,
+      [list_id]
     );
     console.log("Deleted", list);
     return list;
@@ -86,4 +87,11 @@ const deleteList = async (list_id) => {
     throw error;
   }
 };
-module.exports = { createList, getAllLists, getListById, createList, updateList, deleteList };
+module.exports = {
+  createList,
+  getAllLists,
+  getListById,
+  createList,
+  updateList,
+  deleteList,
+};
