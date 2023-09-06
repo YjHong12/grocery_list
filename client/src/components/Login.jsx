@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { loginMember } from "../../fetching";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -11,18 +12,11 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
+      const response = await loginMember(username, password);
       if (response.ok) {
         setSuccess(true);
-        // setUsername("");
-        // setPassword("");
+        setUsername("");
+        setPassword("");
         alert("Successfully logged in!");
         navigate("/lists");
       } else {

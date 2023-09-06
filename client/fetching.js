@@ -38,11 +38,30 @@ export async function createMember(member) {
       return result;
     } else {
       console.error("Failed to create member");
-      throw error;
     }
   } catch (error) {
     console.error(error);
     throw error;
+  }
+}
+// FETCH LOGIN MEMBER
+export async function loginMember(username, password) {
+  try {
+    const response = await fetch(`${API}/members/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const result = await response.json();
+    console.log("Logged in member", result);
+    return result;
+  } catch (error) {
+    console.error(error);
   }
 }
 

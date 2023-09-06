@@ -50,25 +50,26 @@ const getMemberById = async (member_id) => {
   }
 };
 
-// const loginMember = async (username, password) => {
-//   try {
-//     const {
-//       rows: [member],
-//     } = await client.query(
-//       `
-//         SELECT * 
-//         FROM member 
-//         WHERE "username" = $1
-//         AND "password" = $2
-//         RETURNING *;;
-//           `
-//     );
-//     console.log("Logged in", member);
-//     return member;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+const loginMember = async (username, password) => {
+  try {
+    console.log(username, password);
+    const {
+      rows: [member],
+    } = await client.query(
+      `
+        SELECT * 
+        FROM member 
+        WHERE username = $1
+        AND password = $2;
+          `, 
+          [username, password]
+    );
+    console.log("Logged in", member);
+    return member;
+  } catch (error) {
+    throw error;
+  }
+};
 
 const updateMember = async (member_id, { name, username, password }) => {
   try {
@@ -114,6 +115,6 @@ module.exports = {
   getAllMembers,
   getMemberById,
   updateMember,
-  // loginMember,
+  loginMember,
   deleteMember,
 };

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getMemberById, getAllMembers, createMember, updateMember, deleteMember } = require('../db/helpers/members')
+const { getMemberById, getAllMembers, createMember, updateMember, deleteMember, loginMember } = require('../db/helpers/members')
 
 // A GET request for a single user by id
 router.get('/:member_id', async (req, res, next) => {
@@ -50,6 +50,19 @@ router.delete('/:member_id', async (req, res, next) => {
         res.send(member);
     } catch (error) {
         next(error);
+    }
+});
+
+// POST - /api/members/login - login
+router.post('/login', async (req, res, next) => {
+    try {
+        const { username, password } = req.body; 
+        console.log("body", req);
+
+        const member = await loginMember(username, password);      
+        res.json({ member });
+    } catch (error) {
+        next(error); 
     }
 });
 
