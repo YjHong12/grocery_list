@@ -10,4 +10,7 @@ router.use('/lists', require('./lists'));
 // ROUTER: /api/members
 router.use('/members', require('./members'));
 
+// ROUTER: /api/login
+router.use('/login', require('./members'));
+
 module.exports = router;
