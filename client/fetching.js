@@ -11,7 +11,6 @@ export async function fetchMembers() {
     console.error("Trouble fetching members", error);
   }
 }
-
 // FETCH SINGLE MEMBER
 export async function fetchMemberById(member_id) {
   try {
@@ -36,6 +35,17 @@ export async function fetchItems() {
     console.error("Trouble fetching items", error);
   }
 }
+// FETCH SINGLE ITEM
+export async function fetchItemById(item_id) {
+  try {
+    const response = await fetch(`${API}/items/${item_id}`);
+    const result = await response.json();
+    console.log("Fetched item", result);
+    return result;
+  } catch (error) {
+    console.error("Trouble fetching item", error);
+  }
+}
 
 // -----------------------------------
 // FETCH ALL LISTS
@@ -47,5 +57,16 @@ export async function fetchLists() {
     return result;
   } catch (error) {
     console.error("Trouble fetching lists", error);
+  }
+}
+// FETCH SINGLE LIST
+export async function fetchListById(list_id) {
+  try {
+    const response = await fetch(`${API}/lists/${list_id}`);
+    const result = await response.json();
+    console.log("Fetched list", result);
+    return result;
+  } catch (error) {
+    console.error("Trouble fetching list", error);
   }
 }
