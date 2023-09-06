@@ -1,86 +1,51 @@
 const API = `http://localhost:8080/api`;
 
-// A GET request for a single item by id
-export async function getItemById(item_id) {
+// FETCH ALL MEMBERS
+export async function fetchMembers() {
   try {
-    const response = await fetch(`${API}/items/${item_id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(`${API}/members`);
     const result = await response.json();
+    console.log("Fetched all members", result);
     return result;
   } catch (error) {
-    console.error("Trouble fetching item", error);
+    console.error("Trouble fetching members", error);
   }
 }
 
-// A GET request for all items
+// FETCH SINGLE MEMBER
+export async function fetchMemberById(member_id) {
+  try {
+    const response = await fetch(`${API}/members/${member_id}`);
+    const result = await response.json();
+    console.log("Fetched user", result);
+    return result;
+  } catch (error) {
+    console.error("Trouble fetching member", error);
+  }
+}
+
+// -----------------------------------
+// FETCH ALL ITEMS
 export async function fetchItems() {
   try {
-    const response = await fetch(`${API}/items`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(`${API}/items`);
     const result = await response.json();
+    console.log("Fetched items", result);
     return result;
   } catch (error) {
     console.error("Trouble fetching items", error);
   }
 }
 
-// A POST request to add a new item
-export async function newItem(item) {
+// -----------------------------------
+// FETCH ALL LISTS
+export async function fetchLists() {
   try {
-    const response = await fetch(`${API}/items`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(item),
-    });
+    const response = await fetch(`${API}/lists`);
     const result = await response.json();
-    console.log(result);
+    console.log("Fetched lists", result);
     return result;
   } catch (error) {
-    console.error(error);
-  }
-}
-
-// A PUT or PATCH request to update an item by id
-export async function updateItem(item_id, item) {
-  try {
-    const response = await fetch(`${API}/items/${item_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(item),
-    });
-    const result = await response.json();
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// A DELETE request to delete an item by id
-export async function deleteItem(item_id) {
-  try {
-    const response = await fetch(`${API}/items/${item_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.error(error);
+    console.error("Trouble fetching lists", error);
   }
 }

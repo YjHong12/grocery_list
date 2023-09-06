@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <div className="navbar">
       <Link to="/">Home </Link>
-      <Link to="/lists">Lists</Link>
+      <Link to="/lists">Lists </Link>
       <Link to="/login">Login </Link>
       <Link to="/signup">Sign Up</Link>
 
