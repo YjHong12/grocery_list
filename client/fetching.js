@@ -104,7 +104,7 @@ export async function createItem(item) {
       return result;
     } else {
       console.error("Failed to create item");
-      throw error;
+      throw new Error("Failed to create item");
     }
   } catch (error) {
     console.error(error);
@@ -179,9 +179,11 @@ export async function createList(list) {
       return result;
     } else {
       console.error("Failed to create list");
+      throw new Error("Failed to create list");
     }
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 // FETCH DELETE LIST
@@ -194,10 +196,9 @@ export async function deleteList(list_id) {
       console.log(`Deleted list ${list_id}`);
     } else {
       console.error(`Error deleting list ${list_id}`);
-      throw error
+      alert("This list still has groceries!")
     }
   } catch (error) {
     console.error(error);
-    throw error;
   }
 }

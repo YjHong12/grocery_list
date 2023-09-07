@@ -1,40 +1,55 @@
 import React, { useState } from "react";
-import { createList, fetchLists } from "../../fetching";
+import { createList, createItem, fetchLists } from "../../fetching";
 import { useParams } from "react-router-dom";
 
 export default function CreateList({ onSubmit }) {
   const [title, setTitle] = useState("");
-  const [listId, setListId] = useState(null); 
+  const [itemName, setItemName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [items, setItems] = useState([]);
+  const [listId, setListId] = useState(null);
   const { member_id } = useParams();
 
-  // CREATE NEW LIST
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleCreateList = async () => {
     try {
       if (!title) {
         return;
       }
-  
-      const newList = {
-        title: title,
-        member_id: member_id,
-      };
-      const response = await createList(newList);
-      const updatedList = await fetchLists();
-      const newListId = response.list_id;
+      const newList = await createList({ title, member_id });
+      const newListId = newList.list_id;
       setListId(newListId);
+
+      for (const item of items) {
+        await createItem({ ...item, list_id: newListId });
+      }
       onSubmit(newListId);
       setTitle("");
+      setItemName("");
+      setQuantity("");
+      setItems([]);
     } catch (error) {
       console.error("Error creating list", error);
     }
+  };
+
+  const addItemToList = () => {
+    if (!itemName || !quantity) {
+      return;
+    }
+    const newItem = {
+      item_name: itemName,
+      quantity: quantity,
+    };
+    setItems([...items, newItem]);
+    setItemName("");
+    setQuantity("");
   };
 
   return (
     <div>
       {/* ------------ FORM TO CREATE LISTS ------------ */}
       <h1>Create a New List</h1>
-      <form className="createList" onSubmit={handleSubmit}>
+      <form className="createList">
         <label>
           <b>List Title: </b>
           <input
@@ -47,7 +62,47 @@ export default function CreateList({ onSubmit }) {
           />
         </label>
         <br />
-        <button type="submit">Create List</button>
+        <label>
+          <b>Item Name: </b>
+          <input
+            type="text"
+            name="itemName"
+            id="itemName"
+            required
+            value={itemName}
+            onChange={(event) => setItemName(event.target.value)}
+          />
+        </label>
+        <label>
+          <b>Quantity: </b>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            required
+            value={quantity}
+            onChange={(event) => setQuantity(event.target.value)}
+          />
+        </label>
+        <button type="button" onClick={addItemToList}>
+          Add Item
+        </button>
+        <br />
+        {items.length > 0 && (
+          <div>
+            <h3>Added Items:</h3>
+            <ul>
+              {items.map((item, index) => (
+                <li key={index}>
+                  {item.item_name}, {item.quantity}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <button type="button" onClick={handleCreateList}>
+          Create List
+        </button>
       </form>
     </div>
   );

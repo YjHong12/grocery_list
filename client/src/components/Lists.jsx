@@ -41,6 +41,18 @@ export default function Lists() {
   // DELETE LIST
   const handleDeleteList = async (list_id) => {
     try {
+      const selectedList = lists.find((list) => list.list_id === list_id);
+
+      if (!selectedList) {
+        console.error("List not found.");
+        return;
+      }
+
+      if (selectedList && selectedList.items && selectedList.items.length > 0){
+        alert("List still has groceries!");
+        return;
+      }
+
       await deleteList(list_id);
       const updatedLists = await fetchListsByMember(member_id);
       setLists(updatedLists);
