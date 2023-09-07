@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchListsByMember, createList, deleteList } from "../../fetching";
+import {
+  fetchListsByMember,
+  createList,
+  deleteList,
+  updateList,
+} from "../../fetching";
 import ItemList from "./ItemList";
 import CreateList from "./CreateList";
+import UpdateList from "./UpdateList";
 
 export default function Lists() {
   const [lists, setLists] = useState([]);
   const [selectedList, setSelectedList] = useState(null);
+  const [updatingList, setUpdatingList] = useState(null);
   const { member_id } = useParams();
 
   // FETCH LISTS OF LOGGED IN MEMBER
@@ -48,7 +55,7 @@ export default function Lists() {
         return;
       }
 
-      if (selectedList && selectedList.items && selectedList.items.length > 0){
+      if (selectedList && selectedList.items && selectedList.items.length > 0) {
         alert("List still has groceries!");
         return;
       }
@@ -61,6 +68,18 @@ export default function Lists() {
       }
     } catch (error) {
       console.error("Error deleting list", error);
+    }
+  };
+
+  // UPDATE LIST
+  const handleUpdateList = async (updatedList) => {
+    try {
+      await updateList(updatedList);
+      const updatedLists = await fetchListsByMember(member_id);
+      setLists(updatedLists);
+      setUpdatingList(null);
+    } catch (error) {
+      console.error("Error updating list", error);
     }
   };
 
@@ -83,6 +102,7 @@ export default function Lists() {
                 <button onClick={() => handleDeleteList(list.list_id)}>
                   Delete
                 </button>
+                <button onClick={() => setUpdatingList(list)}>Edit List</button>
               </li>
             ))}
           </ul>
@@ -91,6 +111,15 @@ export default function Lists() {
 
       {/* ------------ FORM TO CREATE LISTS ------------ */}
       <CreateList onSubmit={handleSubmit} />
+
+      {/* ------------ EDIT LIST/ITEM ------------ */}
+      {updatingList && (
+        <UpdateList
+          list={updatingList}
+          onUpdateList={handleUpdateList}
+          onCancel={() => setUpdatingList(null)}
+        />
+      )}
 
       {/* ------------ FILTERED LIST ------------ */}
       {selectedList && <ItemList listId={selectedList} />}

@@ -128,6 +128,29 @@ export async function deleteItem(item_id) {
     throw error;
   }
 }
+// FETCH UPDATE ITEM
+export async function updateItem(item) {
+  try {
+    const response = await fetch(`${API}/items/${item.item_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Updated item", result);
+      return result;
+    } else {
+      console.error("Error updating item");
+      throw new Error("Error updating item");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 // -----------------------------------
 // FETCH ALL LISTS
@@ -200,5 +223,28 @@ export async function deleteList(list_id) {
     }
   } catch (error) {
     console.error(error);
+  }
+}
+// FETCH UPDATE LIST
+export async function updateList(list) {
+  try {
+    const response = await fetch(`${API}/lists/${list.list_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(list),
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Updated list", result);
+      return result;
+    } else {
+      console.error("Error updating list");
+      throw new Error("Error updating list");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }

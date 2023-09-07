@@ -1,21 +1,27 @@
 import { useState, useEffect } from "react";
-import { fetchItems, createItem, deleteItem } from "../../fetching";
+import {
+  fetchItems,
+  createItem,
+  deleteItem,
+  updateItem,
+} from "../../fetching";
+import EditItemForm from "./EditItemForm";
 
 export default function ItemList({ listId }) {
   const [items, setItems] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [editingItem, setEditingItem] = useState(null);
 
   // FETCH ALL ITEMS
   useEffect(() => {
     async function getAllItems() {
-      const API = await fetchItems();
-      console.log(API);
-      if (API) {
-        setItems(API);
-      } else {
-        console.error("Error fetching items");
+      try {
+        const API = await fetchItems();
+        setItems(API || []);
+      } catch (error) {
+        console.error("Error fetching items", error);
       }
     }
     getAllItems();
@@ -42,9 +48,9 @@ export default function ItemList({ listId }) {
         quantity: quantity,
         list_id: listId,
       };
-      const response = await createItem(newItem);
+      await createItem(newItem);
       const updatedItems = await fetchItems();
-      setItems(updatedItems);
+      setItems(updatedItems || []);
       setItemName("");
       setQuantity("");
     } catch (error) {
@@ -52,16 +58,32 @@ export default function ItemList({ listId }) {
     }
   };
 
-// DELETE ITEM
-const handleDelete = async (itemId) => {
-  try {
-    await deleteItem(itemId);
-    const updatedItems = await fetchItems();
-    setItems(updatedItems);
-  } catch (error) {
-    console.error("Error deleting item", error);
-  }
-};
+  // DELETE ITEM
+  const handleDelete = async (itemId) => {
+    try {
+      await deleteItem(itemId);
+      const updatedItems = await fetchItems();
+      setItems(updatedItems || []);
+    } catch (error) {
+      console.error("Error deleting item", error);
+    }
+  };
+
+  // UPDATE ITEM
+  const handleEditItem = (item) => {
+    setEditingItem(item);
+  };
+
+  const handleUpdateItem = async (updatedItem) => {
+    try {
+      await updateItem(updatedItem);
+      const updatedItems = await fetchItems();
+      setItems(updatedItems || []);
+      setEditingItem(null);
+    } catch (error) {
+      console.error("Error updating item", error);
+    }
+  };
 
   return (
     <div className="items">
@@ -112,11 +134,20 @@ const handleDelete = async (itemId) => {
       </form>
 
       {/* ------------ FILTER/DELETE ITEMS ------------ */}
+      {editingItem && (
+        <EditItemForm
+          item={editingItem}
+          onUpdateItem={handleUpdateItem}
+          onCancel={() => setEditingItem(null)}
+        />
+      )}
+
       {filteredItem.map((item) => (
         <li key={item.item_id}>
           <h4>{item.item_name}</h4>
           <p>{item.quantity}</p>
           <button onClick={() => handleDelete(item.item_id)}>Delete</button>
+          <button onClick={() => handleEditItem(item)}>Edit Item</button>
         </li>
       ))}
     </div>
