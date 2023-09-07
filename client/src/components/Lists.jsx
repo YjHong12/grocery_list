@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchListsByMember, createList } from "../../fetching";
+import { fetchListsByMember, createList, deleteList } from "../../fetching";
 import ItemList from "./ItemList";
 import CreateList from "./CreateList";
 
@@ -34,7 +34,21 @@ export default function Lists() {
         console.error("Error creating new list");
       }
     } catch (error) {
-      console.error("Error creating new list", error);
+      console.error("Error creating/fetching lists", error);
+    }
+  };
+
+  // DELETE LIST
+  const handleDeleteList = async (list_id) => {
+    try {
+      await deleteList(list_id);
+      const updatedLists = await fetchListsByMember(member_id);
+      setLists(updatedLists);
+      if (selectedList === list_id) {
+        setSelectedList(null);
+      }
+    } catch (error) {
+      console.error("Error deleting list", error);
     }
   };
 
@@ -47,12 +61,16 @@ export default function Lists() {
           <h1>Lists</h1>
           <ul>
             {lists.map((list) => (
-              <li
-                key={list.list_id}
-                onClick={() => setSelectedList(list.list_id)}
-                className={selectedList === list.list_id ? "selected" : ""}
-              >
-                {list.title}
+              <li key={list.list_id}>
+                <span
+                  onClick={() => setSelectedList(list.list_id)}
+                  className={selectedList === list.list_id ? "selected" : ""}
+                >
+                  {list.title}
+                </span>
+                <button onClick={() => handleDeleteList(list.list_id)}>
+                  Delete
+                </button>
               </li>
             ))}
           </ul>

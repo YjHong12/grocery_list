@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchItems, createItem } from "../../fetching";
+import { fetchItems, createItem, deleteItem } from "../../fetching";
 
 export default function ItemList({ listId }) {
   const [items, setItems] = useState([]);
@@ -52,6 +52,17 @@ export default function ItemList({ listId }) {
     }
   };
 
+// DELETE ITEM
+const handleDelete = async (itemId) => {
+  try {
+    await deleteItem(itemId);
+    const updatedItems = await fetchItems();
+    setItems(updatedItems);
+  } catch (error) {
+    console.error("Error deleting item", error);
+  }
+};
+
   return (
     <div className="items">
       <h1>ITEMS</h1>
@@ -100,11 +111,12 @@ export default function ItemList({ listId }) {
         <br />
       </form>
 
-      {/* ------------ FILTERED ITEMS ------------ */}
+      {/* ------------ FILTER/DELETE ITEMS ------------ */}
       {filteredItem.map((item) => (
         <li key={item.item_id}>
           <h4>{item.item_name}</h4>
           <p>{item.quantity}</p>
+          <button onClick={() => handleDelete(item.item_id)}>Delete</button>
         </li>
       ))}
     </div>

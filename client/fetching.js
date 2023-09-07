@@ -111,6 +111,23 @@ export async function createItem(item) {
     throw error;
   }
 }
+// FETCH DELETE ITEM
+export async function deleteItem(item_id) {
+  try {
+    const response = await fetch(`${API}/items/${item_id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      console.log(`Deleted item ${item_id}`);
+    } else {
+      console.error(`Error deleting item ${item_id}`);
+      throw error
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 // -----------------------------------
 // FETCH ALL LISTS
@@ -146,7 +163,6 @@ export async function fetchListsByMember(member_id) {
     console.error("Trouble fetching lists of member", error);
   }
 }
-
 // FETCH CREATE LIST
 export async function createList(list) {
   try {
@@ -166,5 +182,22 @@ export async function createList(list) {
     }
   } catch (error) {
     console.error(error);
+  }
+}
+// FETCH DELETE LIST
+export async function deleteList(list_id) {
+  try {
+    const response = await fetch(`${API}/lists/${list_id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      console.log(`Deleted list ${list_id}`);
+    } else {
+      console.error(`Error deleting list ${list_id}`);
+      throw error
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }

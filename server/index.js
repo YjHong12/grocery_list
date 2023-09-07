@@ -5,6 +5,10 @@ const PORT = 8080;
 const client = require("./db/client");
 client.connect();
 
+// init cors
+const cors = require('cors');
+app.use(cors());
+
 // init morgan
 const morgan = require('morgan');
 app.use(morgan('dev'));
@@ -12,10 +16,6 @@ app.use(morgan('dev'));
 // init body-parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-
-// init cors
-const cors = require('cors');
-app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

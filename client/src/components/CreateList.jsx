@@ -1,32 +1,34 @@
 import React, { useState } from "react";
-import { createItem, createList, fetchLists } from "../../fetching";
+import { createList, fetchLists } from "../../fetching";
 import { useParams } from "react-router-dom";
 
-export default function CreateList({ listId }) {
-    const [title, setTitle] = useState("");
-    const [itemName, setItemName] = useState("");
-    const [quantity, setQuantity] = useState("");
-    const { member_id } = useParams();
+export default function CreateList({ onSubmit }) {
+  const [title, setTitle] = useState("");
+  const [listId, setListId] = useState(null); 
+  const { member_id } = useParams();
 
   // CREATE NEW LIST
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      if (!title) {
+        return;
+      }
+  
       const newList = {
         title: title,
         member_id: member_id,
-        list_id: listId
-      }
-      
-      const response = await createList(newList); 
+      };
+      const response = await createList(newList);
       const updatedList = await fetchLists();
-        setTitle("");
-        setItemName("");
-        setQuantity("");
+      const newListId = response.list_id;
+      setListId(newListId);
+      onSubmit(newListId);
+      setTitle("");
     } catch (error) {
-        console.error("Error creating list", error);
-      }
-    };
+      console.error("Error creating list", error);
+    }
+  };
 
   return (
     <div>
@@ -45,31 +47,8 @@ export default function CreateList({ listId }) {
           />
         </label>
         <br />
-            <label>
-              Item:
-              <input
-                type="text"
-                name="itemName"
-                id="item"
-                required
-                value={itemName}
-                onChange={(event) => setItemName(event.target.value)}
-              />
-            </label>
-            <br />
-            <label>
-              Quantity:
-              <input
-                type="number"
-                name="quantity"
-                id="quantity"
-                value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}
-                />
-                </label>
-                <br />
-                <button type="submit">Create List</button>
-              </form>
-            </div>
-          );
-        }
+        <button type="submit">Create List</button>
+      </form>
+    </div>
+  );
+}
