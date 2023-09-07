@@ -19,7 +19,6 @@ export default function Login() {
         setUsername("");
         setPassword("");
         setMemberId(response.member.member_id);
-        console.log(response.member);
         alert("Successfully logged in!");
         navigate(`/lists/member/${response.member.member_id}`);
       } else {

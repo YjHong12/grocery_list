@@ -31,12 +31,26 @@ export default function Lists() {
     getMemberLists();
   }, [member_id]);
 
-  const handleSubmit = async (newList) => {
+  const handleCreateList = async (newList) => {
     try {
       const response = await createList(newList);
       if (response && response.list_id) {
-        const updatedLists = await fetchListsByMember(member_id);
-        setLists(updatedLists);
+        setLists([...lists, newList]);
+        setSelectedList(newList.list_id);
+      } else {
+        console.error("Error creating new list");
+      }
+    } catch (error) {
+      console.error("Error creating/fetching lists", error);
+    }
+  };
+
+  const handleSubmit = async (newList) => { // Define handleSubmit function
+    try {
+      const response = await createList(newList);
+      if (response && response.list_id) {
+        setLists([...lists, newList]);
+        setSelectedList(newList.list_id);
       } else {
         console.error("Error creating new list");
       }

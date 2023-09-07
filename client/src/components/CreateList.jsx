@@ -17,12 +17,11 @@ export default function CreateList({ onSubmit }) {
       }
       const newList = await createList({ title, member_id });
       const newListId = newList.list_id;
-      setListId(newListId);
 
       for (const item of items) {
         await createItem({ ...item, list_id: newListId });
       }
-      onSubmit(newListId);
+      onSubmit(newList);
       setTitle("");
       setItemName("");
       setQuantity("");
