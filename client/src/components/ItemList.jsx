@@ -72,7 +72,7 @@ export default function ItemList({ listId }) {
       </div>
       <br />
 
-      {/* ------------ FORM TO CREATE ITEMS ------------ */}
+      {/* ------------ FORM TO ADD ITEMS ------------ */}
       <form className="createItem" onSubmit={handleSubmit}>
         <label>
           <b>Item Name: </b>

@@ -1,51 +1,38 @@
 import React, { useState } from "react";
-import { fetchLists, createList } from "../../fetching";
+import { createItem, createList, fetchLists } from "../../fetching";
+import { useParams } from "react-router-dom";
 
-export default function CreateList({onSubmit}) {
-  const [listTitle, setListTitle] = useState("");
-  const [listItems, setListItems] = useState([
-    { itemName: "", itemQuantity: "" },
-  ]);
+export default function CreateList({ listId }) {
+    const [title, setTitle] = useState("");
+    const [itemName, setItemName] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const { member_id } = useParams();
 
   // CREATE NEW LIST
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const newList = {
-        title: listTitle,
-        items: listItems.filter((item) => item.itemName && item.itemQuantity),
-      };
-      onSubmit(newList);
-
-    //   const response = await createList(newList);
-    //   if (response && response.list_id) {
-    //     const updatedLists = await fetchLists();
-    //     setLists(updatedLists);
-        setListTitle("");
-        setListItems([{ itemName: "", itemQuantity: "" }]);
-    //   } else {
-    //     console.error("Error creating new list");
-    //   }
+        title: title,
+        member_id: member_id,
+        list_id: listId
+      }
+      
+      const response = await createList(newList); 
+      const updatedList = await fetchLists();
+        setTitle("");
+        setItemName("");
+        setQuantity("");
     } catch (error) {
-      console.error("Error creating new list", error);
-    }
-  };
-
-  // ADD ITEMS TO LIST
-  const handleItemSubmit = (index, event) => {
-    const { name, value } = event.target;
-    const addedItems = [...listItems];
-    addedItems[index][name] = value;
-    setListItems(addedItems);
-  };
-  const addNewItem = () => {
-    setListItems([...listItems, { itemName: "", itemQuantity: "" }]);
-  };
+        console.error("Error creating list", error);
+      }
+    };
 
   return (
     <div>
       {/* ------------ FORM TO CREATE LISTS ------------ */}
-      <form onSubmit={handleSubmit}>
+      <h1>Create a New List</h1>
+      <form className="createList" onSubmit={handleSubmit}>
         <label>
           <b>List Title: </b>
           <input
@@ -53,13 +40,11 @@ export default function CreateList({onSubmit}) {
             name="title"
             id="title"
             required
-            value={listTitle}
-            onChange={(event) => setListTitle(event.target.value)}
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
           />
         </label>
         <br />
-        {listItems.map((item, index) => (
-          <div key={index}>
             <label>
               Item:
               <input
@@ -67,8 +52,8 @@ export default function CreateList({onSubmit}) {
                 name="itemName"
                 id="item"
                 required
-                value={item.itemName}
-                onChange={(event) => handleItemSubmit(index, event)}
+                value={itemName}
+                onChange={(event) => setItemName(event.target.value)}
               />
             </label>
             <br />
@@ -76,21 +61,15 @@ export default function CreateList({onSubmit}) {
               Quantity:
               <input
                 type="number"
-                name="itemQuantity"
+                name="quantity"
                 id="quantity"
-                value={item.itemQuantity}
-                onChange={(event) => handleItemSubmit(index, event)}
-              />
-            </label>
-            <br />
-          </div>
-        ))}
-        <button type="button" onClick={addNewItem}>
-          Add Item
-        </button>
-        <button type="submit">Create List</button>
-        <br />
-      </form>
-    </div>
-  );
-}
+                value={quantity}
+                onChange={(event) => setQuantity(event.target.value)}
+                />
+                </label>
+                <br />
+                <button type="submit">Create List</button>
+              </form>
+            </div>
+          );
+        }

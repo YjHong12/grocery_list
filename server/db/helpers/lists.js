@@ -106,7 +106,6 @@ module.exports = {
   createList,
   getAllLists,
   getListById,
-  createList,
   updateList,
   deleteList,
   getListByMember,
