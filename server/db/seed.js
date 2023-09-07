@@ -15,6 +15,7 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS item;
         DROP TABLE IF EXISTS list;
         DROP TABLE IF EXISTS member;
+        DROP TABLE IF EXISTS itemList;
         `);
     console.log("Dropped tables");
   } catch (error) {
@@ -44,6 +45,11 @@ const createTables = async () => {
         quantity INTEGER,
         "list_id" INTEGER REFERENCES list(list_id) NOT NULL
     );
+    CREATE TABLE itemList (
+      itemlist_id SERIAL PRIMARY KEY,
+      "list_id" INTEGER REFERENCES list(list_id) NOT NULL
+      "item_id" INTEGER REFERENCES item(item_id) NOT NULL
+  );
     `);
   console.log("Created tables");
 };
@@ -85,6 +91,18 @@ const createInitialItems = async () => {
   }
 };
 
+//Create item list
+const createInitialItemList = async () => {
+  try {
+    for (const singleItemList of itemList) {
+      await createInitialItemList(singleItemList);
+    }
+    console.log("Create Item List");
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Call functions
 const rebuildDb = async () => {
   try {
@@ -96,6 +114,7 @@ const rebuildDb = async () => {
     await createInitialMembers();
     await createInitialLists();
     await createInitialItems();
+    await createInitialItemList();
   } catch (error) {
     console.error(error);
   } finally {

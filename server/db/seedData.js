@@ -20,4 +20,11 @@ const item = [
   { item_name: "Ice Cream", quantity: 4, list_id: 3 },
 ];
 
+// Item List
+const itemList = [
+  { list_id: 1, item_id: 1 },
+  { list_id: 2, item_id: 2 },
+  { list_id: 3, item_id: 3 },
+]
+
 module.exports = { member, list, item };
