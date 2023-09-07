@@ -124,7 +124,7 @@ export async function fetchLists() {
     console.error("Trouble fetching lists", error);
   }
 }
-// FETCH SINGLE LIST
+// FETCH SINGLE LIST BY ID
 export async function fetchListById(list_id) {
   try {
     const response = await fetch(`${API}/lists/${list_id}`);
@@ -135,6 +135,18 @@ export async function fetchListById(list_id) {
     console.error("Trouble fetching list", error);
   }
 }
+// FETCH LISTS BY MEMBER
+export async function fetchListsByMember(member_id) {
+  try {
+    const response = await fetch(`${API}/lists/member/${member_id}`);
+    const result = await response.json();
+    console.log("Fetched lists of member", result);
+    return result;
+  } catch (error) {
+    console.error("Trouble fetching lists of member", error);
+  }
+}
+
 // FETCH CREATE LIST
 export async function createList(list) {
   try {

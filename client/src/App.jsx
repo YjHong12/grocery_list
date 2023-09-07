@@ -7,8 +7,7 @@ import Signup from "./components/Signup";
 import Lists from "./components/Lists";
 
 function App() {
-  const [token, setToken] = useState("");
-  // const isAuthenticated = !!token;
+  const [memberId, setMemberId] = useState(null);
 
   return (
     <div>
@@ -22,7 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/lists" element={<Lists />} />
+          <Route path="/lists/member/:member_id" element={<Lists member_id={memberId} />} />
  
         </Routes>
 

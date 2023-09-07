@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllLists, getListById, createList, updateList, deleteList } = require('../db/helpers/lists')
+const { getAllLists, getListById, createList, updateList, deleteList, getListByMember } = require('../db/helpers/lists')
 
 // A GET request for a single list by id
 router.get('/:list_id', async (req, res, next) => {
@@ -22,6 +22,16 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 });
+
+// A GET request for lists by member
+router.get('/member/:member_id', async (req, res, next) => {
+    try{
+        const list = await getListByMember(req.params.member_id);
+        res.send(list);
+    } catch (error) {
+        next(error);
+    }
+})
 
 // A POST request to add a new list
 router.post('/', async (req, res, next) => {

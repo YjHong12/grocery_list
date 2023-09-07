@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createMember } from "../../fetching";
 
-export default function Signup({ token, setToken }) {
+export default function Signup() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,12 +18,10 @@ export default function Signup({ token, setToken }) {
         password,
       });
       console.log(result);
-      setToken(result.token);
       setName("");
       setUsername("");
       setPassword("");
       setSignedin(true);
-      console.log(token);
       alert("Succesfully signed up!");
     } catch (error) {
       setError("Failed to register");
@@ -31,9 +29,7 @@ export default function Signup({ token, setToken }) {
     }
   }
 
-  useEffect(() => {
-    console.log("New Token:", token);
-  }, [token]);
+  useEffect(() => {}, []);
 
   return (
     <div className="signup">

@@ -7,18 +7,21 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [memberId, setMemberId] = useState(null);
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
       const response = await loginMember(username, password);
-      if (response.ok) {
+      if (response) {
         setSuccess(true);
         setUsername("");
         setPassword("");
+        setMemberId(response.member.member_id);
+        console.log(response.member);
         alert("Successfully logged in!");
-        navigate("/lists");
+        navigate(`/lists/member/${response.member.member_id}`);
       } else {
         setError("Failed to login");
       }
@@ -27,6 +30,8 @@ export default function Login() {
       setError("Failed to log in. Please try again.");
     }
   }
+
+  // console.log("Rendering Login component");
 
   return (
     <div className="login">

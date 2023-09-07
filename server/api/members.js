@@ -58,7 +58,6 @@ router.post('/login', async (req, res, next) => {
     try {
         const { username, password } = req.body; 
         console.log("body", req);
-
         const member = await loginMember(username, password);      
         res.json({ member });
     } catch (error) {

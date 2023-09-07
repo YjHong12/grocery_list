@@ -87,6 +87,21 @@ const deleteList = async (list_id) => {
     throw error;
   }
 };
+
+const getListByMember = async (member_id) => {
+  try {
+    const { rows } = await client.query(
+      `
+        SELECT * FROM list
+        WHERE member_id =${member_id};
+        `
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   createList,
   getAllLists,
@@ -94,4 +109,5 @@ module.exports = {
   createList,
   updateList,
   deleteList,
+  getListByMember,
 };
