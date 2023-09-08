@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  fetchItems,
-  createItem,
-  deleteItem,
-  updateItem,
-} from "../../fetching";
+import { fetchItems, createItem, deleteItem, updateItem } from "../../fetching";
 import EditItemForm from "./EditItemForm";
 
 export default function ItemList({ listId }) {
@@ -103,7 +98,18 @@ export default function ItemList({ listId }) {
       </div>
       <br />
 
+      {/* ------------ LIST OF ITEMS ------------ */}
+      {filteredItem.map((item) => (
+        <li key={item.item_id}>
+          <h4>{item.item_name}</h4>
+          <p>{item.quantity}</p>
+          <button onClick={() => handleDelete(item.item_id)}>Delete</button>
+          <button onClick={() => handleEditItem(item)}>Edit Item</button>
+        </li>
+      ))}
+
       {/* ------------ FORM TO ADD ITEMS ------------ */}
+      <h2>Add More Items!</h2>
       <form className="createItem" onSubmit={handleSubmit}>
         <label>
           <b>Item Name: </b>
@@ -131,7 +137,7 @@ export default function ItemList({ listId }) {
         <br />
       </form>
 
-      {/* ------------ FILTER/DELETE ITEMS ------------ */}
+      {/* ------------ EDIT ITEMS ------------ */}
       {editingItem && (
         <EditItemForm
           item={editingItem}
@@ -139,15 +145,6 @@ export default function ItemList({ listId }) {
           onCancel={() => setEditingItem(null)}
         />
       )}
-
-      {filteredItem.map((item) => (
-        <li key={item.item_id}>
-          <h4>{item.item_name}</h4>
-          <p>{item.quantity}</p>
-          <button onClick={() => handleDelete(item.item_id)}>Delete</button>
-          <button onClick={() => handleEditItem(item)}>Edit Item</button>
-        </li>
-      ))}
     </div>
   );
 }
