@@ -8,6 +8,7 @@ export default function Login() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [memberId, setMemberId] = useState(null);
+  const [memberName, setMemberName] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -19,6 +20,7 @@ export default function Login() {
         setUsername("");
         setPassword("");
         setMemberId(response.member.member_id);
+        setMemberName(response.member.name);
         alert("Successfully logged in!");
         navigate(`/lists/member/${response.member.member_id}`);
       } else {

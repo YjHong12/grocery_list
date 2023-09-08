@@ -24,7 +24,7 @@ export default function Lists() {
 
       try {
         const memberLists = await fetchListsByMember(member_id);
-        setLists(memberLists.reverse());
+        setLists(memberLists);
       } catch (error) {
         console.error("Error fetching lists for member:", error);
       }
@@ -47,6 +47,7 @@ export default function Lists() {
   };
 
   const handleSubmit = async (newList) => {
+    // Define handleSubmit function
     try {
       const response = await createList(newList);
       if (response && response.list_id) {
@@ -77,7 +78,7 @@ export default function Lists() {
       }
 
       await deleteList(list_id);
-      const updatedLists = lists.filter((list) => list.list_id !== list_id);
+      const updatedLists = await fetchListsByMember(member_id);
       setLists(updatedLists);
       if (selectedList === list_id) {
         setSelectedList(null);
