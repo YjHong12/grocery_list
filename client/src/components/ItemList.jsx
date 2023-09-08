@@ -87,8 +87,6 @@ export default function ItemList({ listId }) {
 
   return (
     <div className="items">
-      <h1>ITEMS</h1>
-
       {/* ------------ SEARCH FOR ITEMS ------------ */}
       <div className="searchItem">
         <label>

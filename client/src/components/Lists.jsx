@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   fetchListsByMember,
   createList,
@@ -100,19 +100,20 @@ export default function Lists() {
   return (
     <div className="lists">
       <h1>LISTS</h1>
-
       {member_id && (
         <div>
           <h1>Lists</h1>
           <ul>
             {lists.map((list) => (
               <li key={list.list_id}>
-                <span
-                  onClick={() => setSelectedList(list.list_id)}
-                  className={selectedList === list.list_id ? "selected" : ""}
-                >
-                  {list.title}
-                </span>
+                <Link to={`/list/${list.list_id}`} state={{ list }}>
+                  <span
+                    onClick={() => setSelectedList(list.list_id)}
+                    className={selectedList === list.list_id ? "selected" : ""}
+                  >
+                    {list.title}
+                  </span>
+                </Link>
                 <button onClick={() => handleDeleteList(list.list_id)}>
                   Delete
                 </button>

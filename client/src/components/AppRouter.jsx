@@ -6,28 +6,30 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Home from "./Home";
 import Navbar from "./Navbar";
+import ListDetails from "./ListDetails";
 
 function AppRouter() {
-    const [memberId, setMemberId] = useState(null);
+  const [memberId, setMemberId] = useState(null);
 
   return (
     <BrowserRouter>
-    <h1>GROCERY LIST</h1>
-    <div id="navbar">
-      <Navbar memberId={memberId} />
-    </div>
+      <h1>GROCERY LIST</h1>
+      <div id="navbar">
+        <Navbar memberId={memberId} />
+      </div>
 
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route
-        path="/lists/member/:member_id"
-        element={<Lists member_id={memberId} />}
-      />
-    </Routes>
-  </BrowserRouter>
-);
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/lists/member/:member_id"
+          element={<Lists member_id={memberId} />}
+        />
+        <Route path="/list/:listId" element={<ListDetails />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default AppRouter;
