@@ -45,7 +45,8 @@ export default function Lists() {
     }
   };
 
-  const handleSubmit = async (newList) => { // Define handleSubmit function
+  const handleSubmit = async (newList) => {
+    // Define handleSubmit function
     try {
       const response = await createList(newList);
       if (response && response.list_id) {
@@ -99,10 +100,9 @@ export default function Lists() {
 
   return (
     <div className="lists">
-      <h1>LISTS</h1>
       {member_id && (
         <div>
-          <h1>Lists</h1>
+          <h2>My Lists:</h2>
           <ul>
             {lists.map((list) => (
               <li key={list.list_id}>
@@ -114,10 +114,14 @@ export default function Lists() {
                     {list.title}
                   </span>
                 </Link>
-                <button onClick={() => handleDeleteList(list.list_id)}>
-                  Delete
-                </button>
-                <button onClick={() => setUpdatingList(list)}>Edit List</button>
+                <div className="listButtons">
+                  <button onClick={() => handleDeleteList(list.list_id)}>
+                    Delete
+                  </button>
+                  <button onClick={() => setUpdatingList(list)}>
+                    Edit List
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

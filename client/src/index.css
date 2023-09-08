@@ -1,69 +1,160 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+body,
+h1,
+h2,
+ul,
+li,
+p,
+button {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #2f3e46;
+  text-align: center;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+body {
+  font-family: Arial, sans-serif;
+  background-image: url("https://hips.hearstapps.com/hmg-prod/images/how-to-save-money-on-groceries-1673472736.png?crop=1xw:0.84375xh;center,top&resize=1200:*");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-position: center center; */
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+h1 {
+  background-color: #00000059;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+/* ------------------- NAV BAR ------------------- */
+div.navbar {
+  background-color: #00000059;
+  color: white;
+  text-align: right;
+  padding: 10px;
+  text-decoration: none;
+}
+
+div.navbarRight {
+  display: inline-block;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #cfe0bb;
   text-decoration: inherit;
 }
+
+.navbarlink {
+  margin-left: 1em;
+}
+
 a:hover {
-  color: #535bf2;
+  color: #617051;
 }
 
-body {
-  margin: 0;
+/* ------------------- LISTS ------------------- */
+.lists, .items {
+  max-width: 90%;
+  background-color: #ffffff7c;
+  border-radius: 2em;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+li:last-child {
+  border-bottom: none;
 }
 
+span {
+  color: #2f3e46;
+  font-weight: bold;
+  font-size: large;
+}
+
+/* ------------------- BUTTONS ------------------- */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #617051;
+  color: white;
+  border: none;
+  padding: 5px 10px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  margin-left: 1em;
+  margin-bottom: 1em;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.signOutButton {
+  margin-bottom: 0;
+}
+
+.goBackButton {
+  background-color: #617051;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* ------------------- FORMS ------------------- */
+form {
+  background-color: #ffffff7c;
+  width: 50%;
+  border-radius: 2em;
+  margin: 0 auto; 
+  padding: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+form.signupForm, form.loginForm {
+  text-align: center;
+  align-items: center;
+}
+
+.signupForm label, .loginForm label {
+  color: #2f3e46;
+  text-align: center;
+}
+
+.signupForm input, .loginForm input {
+  width: 15em;
+  border-radius: 3px;
+  border: 1px solid #617051;
+  padding: .3em;
+  background-color: rgba(255, 255, 255, 0.745);
+  margin-bottom: 1em;
+}
+
+.searchItem input[type="text"] {
+  width: 70%;
+}
+
+@media (max-width: 768px) {
+  .lists {
+    padding: 10px;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  .searchItem input[type="text"] {
+    width: 100%;
   }
 }

@@ -13,13 +13,13 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/">Home</Link>
-<Link to={`/lists/member/`}>Lists</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Sign Up</Link>
+      <Link className="navbarlink" to="/">Home </Link>
+{/* <Link to={`/lists/member/`}>Lists</Link> */}
+      <Link className="navbarlink" to="/login">Login </Link>
+      <Link className="navbarlink" to="/signup">Sign Up </Link>
 
       <div className="navbarRight">
-        <button onClick={signOut}>Sign Out</button>
+        <button className="signOutButton" onClick={signOut}>Sign Out</button>
       </div>
     </div>
   );

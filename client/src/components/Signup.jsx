@@ -43,45 +43,45 @@ export default function Signup() {
       <form className="signupForm" onSubmit={handleSubmit}>
         <label>
           <b>Name: </b>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
         </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          required
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
         <br />
 
         <label>
           <b>Username: </b>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
         </label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          required
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
         <br />
 
         <label>
           <b>Password: </b>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
         </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
         <br />
         <br />
 
-        <button className="signup" type="submit">
+        <button className="signupButton" type="submit">
           REGISTER
         </button>
         <p>

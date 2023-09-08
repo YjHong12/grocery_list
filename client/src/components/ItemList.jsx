@@ -88,7 +88,7 @@ export default function ItemList({ listId }) {
           Search:{" "}
           <input
             type="text"
-            placeholder="search"
+            placeholder="search for item"
             value={searchParam}
             onChange={(event) =>
               setSearchParam(event.target.value.toLowerCase())
@@ -102,9 +102,10 @@ export default function ItemList({ listId }) {
       {filteredItem.map((item) => (
         <li key={item.item_id}>
           <h4>{item.item_name}</h4>
-          <p>{item.quantity}</p>
+          <p><b>Quantity: </b>{item.quantity}</p>
+          <div className="listButtons">
           <button onClick={() => handleDelete(item.item_id)}>Delete</button>
-          <button onClick={() => handleEditItem(item)}>Edit Item</button>
+          <button onClick={() => handleEditItem(item)}>Edit Item</button></div>
         </li>
       ))}
 

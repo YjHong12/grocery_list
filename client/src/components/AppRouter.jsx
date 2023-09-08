@@ -13,7 +13,7 @@ function AppRouter() {
 
   return (
     <BrowserRouter>
-      <h1>GROCERY LIST</h1>
+      <h1>MY GROCERY LIST</h1>
       <div id="navbar">
         <Navbar memberId={memberId} />
       </div>
