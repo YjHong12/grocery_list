@@ -14,6 +14,7 @@ export default function Lists() {
   const [lists, setLists] = useState([]);
   const [selectedList, setSelectedList] = useState(null);
   const [updatingList, setUpdatingList] = useState(null);
+  const [showCreateList, setShowCreateList] = useState(false);
   const { member_id } = useParams();
 
   // FETCH LISTS OF LOGGED IN MEMBER
@@ -52,6 +53,7 @@ export default function Lists() {
       if (response && response.list_id) {
         setLists([...lists, newList]);
         setSelectedList(newList.list_id);
+        setShowCreateList(false);
       } else {
         console.error("Error creating new list");
       }
@@ -115,13 +117,21 @@ export default function Lists() {
                   </span>
                 </Link>
                 <div className="listButtons">
+                <button onClick={() => setUpdatingList(list)}>
+                    Edit Title
+                  </button>
                   <button onClick={() => handleDeleteList(list.list_id)}>
                     Delete
                   </button>
-                  <button onClick={() => setUpdatingList(list)}>
-                    Edit List
-                  </button>
+
                 </div>
+                {updatingList && updatingList.list_id === list.list_id && (
+                  <UpdateList
+                    list={updatingList}
+                    onUpdateList={handleUpdateList}
+                    onCancel={() => setUpdatingList(null)}
+                  />
+                )}
               </li>
             ))}
           </ul>
@@ -130,15 +140,6 @@ export default function Lists() {
 
       {/* ------------ FORM TO CREATE LISTS ------------ */}
       <CreateList onSubmit={handleSubmit} />
-
-      {/* ------------ EDIT LIST/ITEM ------------ */}
-      {updatingList && (
-        <UpdateList
-          list={updatingList}
-          onUpdateList={handleUpdateList}
-          onCancel={() => setUpdatingList(null)}
-        />
-      )}
 
       {/* ------------ FILTERED LIST ------------ */}
       {selectedList && <ItemList listId={selectedList} />}

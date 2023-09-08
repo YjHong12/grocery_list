@@ -73,7 +73,7 @@ li {
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dashed #2f3e46;
 }
 
 li:last-child {
