@@ -28,7 +28,7 @@ export default function EditItemForm({ item, onUpdateItem, onCancel }) {
             value={updatedItemName}
             onChange={(event) => setUpdatedItemName(event.target.value)}
           />
-        </div>
+        </div><br />
         <div>
           <label htmlFor="updatedQuantity">Quantity: </label>
           <input
@@ -37,7 +37,7 @@ export default function EditItemForm({ item, onUpdateItem, onCancel }) {
             value={updatedQuantity}
             onChange={(event) => setUpdatedQuantity(event.target.value)}
           />
-        </div>
+        </div><br />
         <div className="buttons">
           <button type="submit">Save</button>
           <button type="button" onClick={onCancel}>

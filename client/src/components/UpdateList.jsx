@@ -8,7 +8,7 @@ export default function UpdateList({ list, onUpdateList, onCancel }) {
   };
   return (
     <div>
-      <h2>Edit List Title</h2>
+      <h2>Edit List Title</h2>< br/>
       <input
         type="text"
         name="newTitle"

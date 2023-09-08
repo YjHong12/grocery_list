@@ -100,12 +100,22 @@ export default function ItemList({ listId }) {
 
       {/* ------------ LIST OF ITEMS ------------ */}
       {filteredItem.map((item) => (
-        <li key={item.item_id}>
-          <h4>{item.item_name}</h4>
-          <p><b>Quantity: </b>{item.quantity}</p>
+        <li key={item.item_id} className="item-container">
+          <h4 className="itemName" >{item.item_name}</h4>
+          < br/><b>Quantity: </b>{item.quantity}
+           <br /><br />
           <div className="listButtons">
-          <button onClick={() => handleDelete(item.item_id)}>Delete</button>
-          <button onClick={() => handleEditItem(item)}>Edit Item</button></div>
+          <button className="deleteItemButton" onClick={() => handleDelete(item.item_id)}>Delete</button>
+          <button className="editItemButton" onClick={() => handleEditItem(item)}>Edit Item</button></div>
+      {/* ------------ EDIT ITEMS ------------ */}
+      <div className="editItemForm">
+      {editingItem === item && (
+        <EditItemForm
+          item={editingItem}
+          onUpdateItem={handleUpdateItem}
+          onCancel={() => setEditingItem(null)}
+        />
+      )}</div>
         </li>
       ))}
 
@@ -137,15 +147,6 @@ export default function ItemList({ listId }) {
         <button type="submit">Add Item</button>
         <br />
       </form>
-
-      {/* ------------ EDIT ITEMS ------------ */}
-      {editingItem && (
-        <EditItemForm
-          item={editingItem}
-          onUpdateItem={handleUpdateItem}
-          onCancel={() => setEditingItem(null)}
-        />
-      )}
     </div>
   );
 }

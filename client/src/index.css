@@ -58,7 +58,7 @@ a:hover {
 /* ------------------- LISTS ------------------- */
 .lists, .items {
   max-width: 90%;
-  background-color: #ffffff7c;
+  background-color: #ffffff8a;
   border-radius: 2em;
   padding: 20px;
   margin: 0 auto;
@@ -111,6 +111,14 @@ button {
   font-weight: bold;
 }
 
+.deleteItemButton, .editItemButton {
+  align-items: left;
+}
+
+.deleteItemButton {
+  margin-left: 0;
+}
+
 /* ------------------- FORMS ------------------- */
 form {
   background-color: #ffffff7c;
@@ -143,6 +151,23 @@ form.signupForm, form.loginForm {
   padding: .3em;
   background-color: rgba(255, 255, 255, 0.745);
   margin-bottom: 1em;
+}
+
+.item-container {
+  text-align: left;
+  display:inline-block;
+  position: relative;
+  width: 50%;
+}
+
+.itemName, .listButtons {
+  display:inline-block;
+  min-width: 50%;
+}
+
+.editItemForm {
+  width: 25em;
+  float:right;
 }
 
 .searchItem input[type="text"] {

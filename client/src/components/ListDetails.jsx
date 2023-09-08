@@ -3,13 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ItemList from "./ItemList";
 
 export default function ListDetails() {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { list } = location.state || {};
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { list } = location.state || {};
 
-    const goBackToLists = () => {
-        navigate(-1);
-      };
+  const goBackToLists = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
@@ -17,6 +17,7 @@ export default function ListDetails() {
         <div>
           <h1>{list.title}</h1>
           <ItemList listId={list.list_id} />
+          <br />
           <button onClick={goBackToLists}>Back to My Lists</button>
         </div>
       ) : (
