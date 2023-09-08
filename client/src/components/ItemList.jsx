@@ -120,7 +120,7 @@ export default function ItemList({ listId }) {
       ))}
 
       {/* ------------ FORM TO ADD ITEMS ------------ */}
-      <h2>Add More Items!</h2>
+      <h2 className="addItemTitle">Add More Items!</h2><br />
       <form className="createItem" onSubmit={handleSubmit}>
         <label>
           <b>Item Name: </b>

@@ -17,8 +17,8 @@ export default function ListDetails() {
         <div>
           <h1>{list.title}</h1>
           <ItemList listId={list.list_id} />
-          <br />
-          <button onClick={goBackToLists}>Back to My Lists</button>
+          <br /><div className="backToList">
+          <button onClick={goBackToLists}>Back to My Lists</button></div>
         </div>
       ) : (
         <p>No list data</p>

@@ -1,4 +1,4 @@
-body,
+/* body, */
 h1,
 h2,
 ul,
@@ -25,6 +25,14 @@ h1 {
   background-color: #00000059;
   color: #fff;
   padding: 20px;
+  text-align: center;
+}
+
+.addItemTitle {
+  margin-top: 1em;
+}
+
+.searchItem {
   text-align: center;
 }
 
@@ -95,6 +103,7 @@ button {
   cursor: pointer;
   margin-left: 1em;
   margin-bottom: 1em;
+  text-align: center;
 }
 
 .signOutButton {
@@ -119,6 +128,10 @@ button {
   margin-left: 0;
 }
 
+.backToList {
+  text-align: center;
+}
+
 /* ------------------- FORMS ------------------- */
 form {
   background-color: #ffffff7c;
@@ -126,6 +139,7 @@ form {
   border-radius: 2em;
   margin: 0 auto; 
   padding: 20px;
+  text-align: center;
 }
 
 label {

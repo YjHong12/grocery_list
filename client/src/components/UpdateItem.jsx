@@ -10,7 +10,7 @@ export default function UpdateItem({ item, onUpdateItem, onCancel }) {
 
   return (
     <div>
-      <h2>Edit Item</h2>
+      <h2 className="addItemTitle">Edit Item</h2>
       <input
         type="text"
         name="newItemName"
