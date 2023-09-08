@@ -36,7 +36,7 @@ export default function Signup() {
       <h1>Create an account</h1>
       {signedin && (
         <p>
-          Succesfully signed up! You can now <Link to="/login">Log in</Link>
+          <b>Succesfully signed up! Click to <Link to="/login">Sign in</Link></b>
         </p>
       )}
       {error && <p>{error}</p>}
