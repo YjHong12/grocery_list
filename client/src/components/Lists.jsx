@@ -47,7 +47,6 @@ export default function Lists() {
   };
 
   const handleSubmit = async (newList) => {
-    // Define handleSubmit function
     try {
       const response = await createList(newList);
       if (response && response.list_id) {

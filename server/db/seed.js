@@ -35,7 +35,7 @@ const createTables = async () => {
   );
     CREATE TABLE list (
         list_id SERIAL PRIMARY KEY,
-        title varchar(255) NOT NULL,
+        title varchar(255) UNIQUE NOT NULL,
         "member_id" INTEGER REFERENCES member(member_id) NOT NULL
     );
     CREATE TABLE item (
