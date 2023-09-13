@@ -110,6 +110,19 @@ const deleteMember = async (member_id) => {
   }
 };
 
+const getMemberByUsername = async (username) => {
+  const {
+    rows: [member],
+  } = await client.query(
+    `
+    SELECT * FROM member
+    WHERE member.username = $1
+    `,
+    [username]
+  )
+  return member
+}
+
 module.exports = {
   createMember,
   getAllMembers,
@@ -117,4 +130,5 @@ module.exports = {
   updateMember,
   loginMember,
   deleteMember,
+  getMemberByUsername
 };
