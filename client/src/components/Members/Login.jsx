@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginMember } from "../../fetching";
+import { loginMember } from "../../../fetching";
 
 export default function Login() {
   const [username, setUsername] = useState("");

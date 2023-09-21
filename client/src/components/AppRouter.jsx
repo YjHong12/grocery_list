@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Lists from "./Lists";
-import ItemList from "./ItemList";
-import Signup from "./Signup";
-import Login from "./Login";
+import Signup from "./Members/Signup";
+import Login from "./Members/Login";
 import Home from "./Home";
 import Navbar from "./Navbar";
-import ListDetails from "./ListDetails";
+import Lists from "./List/Lists";
+import ListDetails from "./List/ListDetails";
 
 function AppRouter() {
   const [memberId, setMemberId] = useState(null);
