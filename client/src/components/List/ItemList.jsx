@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchItems, createItem, deleteItem, updateItem } from "../../../fetching";
-import EditItemForm from "../EditItemForm";
+import EditItemForm from "../Items/EditItemForm"
 
 export default function ItemList({ listId }) {
   const [items, setItems] = useState([]);

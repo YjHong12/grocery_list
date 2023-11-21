@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createList, createItem, fetchLists } from "../../../fetching";
+import { createList, createItem } from "../../../fetching";
 import { useParams } from "react-router-dom";
 
 export default function CreateList({ onSubmit }) {
